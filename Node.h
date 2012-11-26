@@ -5,6 +5,7 @@
 #define __NODE_H__
 
 #include <vector>
+#include "Packet.h"
 
 class NetworkInterface;
 class Application;
@@ -12,18 +13,22 @@ class Application;
 class Node 
 {
 public:
-  Node(); // Constructor
-  void ComputeRoutes();     // Populate the routing table
+  Node(int addr); // Constructor
+  void ComputeRoutes(std::vector<Node*> nodes);     // Populate the routing table
   void AddNeighbor(Node*);  // Add a new interface, p2p link and neighbor node
   void AddInterface  (NetworkInterface*);
   void AddApplication(Application*);
   void Send(int count, int dest);  // Send count bytes to specified destination
   void Receive(int count, int source);  // Received count bytes from specified source
+  int getNodeCount();
+  static int NodeCount;
 private:
   unsigned int                   address;    // This node's address
   std::vector<NetworkInterface*> interfaces;
   std::vector<Application*>      applications;
+  std::vector<Node*>		 neighbors;
   std::vector<int>               nextHopRoutes;
+//  static int NodeCount;
 };
   
 #endif

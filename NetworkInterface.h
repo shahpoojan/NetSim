@@ -10,6 +10,7 @@
 class NetworkLink;
 class Packet;
 class Queue;
+class Node;
 
 class NetworkInterface : public Handler
 {
