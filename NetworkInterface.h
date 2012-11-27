@@ -16,14 +16,18 @@ class NetworkInterface : public Handler
 {
 public:
   NetworkInterface(); // Constructor
-  void AddP2PLink(NetworkLink*);
+  NetworkInterface(double); //Constructor with data rate as argument (makes the implementation flexible)
+  void AddP2PLink(NetworkLink*, NetworkInterface*, double link_delay);
   void Send(Packet*); // Send specified packet to p2p peer
   void Handle(Event*, Time_t); // Handle event
 public:
-  NetworkLink*      link;
-  Queue*            queue; // Associated node
-  Node*             node;  // Associated node
-  bool              busy;  // true if busy sending a packet
+  NetworkLink*  link;
+  Queue*        queue; // Associated node
+  Node*         node;  // Associated node
+  bool          busy;  // true if busy sending a packet
+  //added by apkarande
+  double interface_data_rate;	//data rate for each interface
+  
 };
 
 #endif
