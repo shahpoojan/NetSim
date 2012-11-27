@@ -11,7 +11,8 @@ class PacketSyncApplication  : public Application
 {
   public:
   PacketSyncApplication();
-  void         SetPeerAddress(int peerAddr);
+  //void         SetPeerAddress(int peerAddr); //Commented by Charmi
+  void ReceivedData(int count0);
   virtual void Start(); // Start the application
   virtual void Stop();  // Stop the application
   virtual void Handle(Event*, Time_t);
