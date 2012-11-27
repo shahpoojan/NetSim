@@ -1,4 +1,5 @@
 #include "NetworkInterface.h"
+#include "NetworkLink.h"
 #include "Queue.h"
 #include <cstddef>
 
@@ -40,8 +41,8 @@ void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peer
 {
 	if(pkt != NULL)
 	{
-		if(Enque(pkt) == false)		//if queue is full, the packet is dropped, hence increment count
-			num_dropped_pkts++;
+		//if(Enque(pkt) == false)		//if queue is full, the packet is dropped, hence increment count
+		//	num_dropped_pkts++;
 		
 		//add transmit event to the event list
 	}

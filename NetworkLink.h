@@ -1,8 +1,8 @@
 // Definition of NetworkInterface class
 // ECE8893, Final Project, Fall 2012
 
-#ifndef __NETWORK_INTERFACE_H__
-#define __NETWORK_INTERFACE_H__
+#ifndef __NETWORK_LINK_H__
+#define __NETWORK_LINK_H__
 
 #include "CommonDefs.h"
 
