@@ -7,7 +7,7 @@ PacketSyncApplication::PacketSyncApplication():Application()
 }
 
 //Added by Charmi
-PacketSyncApplication::ReceivedData(int count0)
+void PacketSyncApplication::ReceivedData(int count0)
 {
       totalPacketsReceived++;
       totalBytesReceived+=count0;

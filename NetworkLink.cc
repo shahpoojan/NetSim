@@ -1,7 +1,7 @@
 #include "NetworkLink.h"
 
 #define LINK_TEST 1
-void NetworkLink::NetworkLink(double delay0, double dataRate0) // Construct with delay and data rate
+NetworkLink::NetworkLink(double delay0, double dataRate0) // Construct with delay and data rate
 {
 	delay = delay0;
 	dataRate = dataRate0;

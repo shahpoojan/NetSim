@@ -1,11 +1,11 @@
 #include"Application.h"
-
+#include <cstddef>
 Application::Application()
 {
       node=NULL;
 }
 
-Application::AttachToNode(Node* newNode)
+void Application::AttachToNode(Node* newNode)
 {
       node=newNode;
 }

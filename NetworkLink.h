@@ -7,6 +7,7 @@
 #include "CommonDefs.h"
 
 class Node;
+class Packet;
 
 class NetworkLink 
 {
@@ -20,5 +21,5 @@ class NetworkLink
 	Node* peerNode;
 	double delay; // Speed of light delay on this link
 	double dataRate; // BIts per second on this link
-}
+};
 #endif

@@ -1,27 +1,6 @@
 #include "NetworkInterface.h"
-<<<<<<< HEAD
-
-NetworkInterface::NetworkInterface()
-{
-
-}
-
-void NetworkInterface::Send(Packet* p)
-{
-
-}
-
-void NetworkInterface::AddP2PLink(NetworkLink*)
-{
-
-}
-
-void NetworkInterface::Handle(Event* e, Time_t time)
-{
-
-}
-=======
 #include "Queue.h"
+#include <cstddef>
 
 long unsigned int num_dropped_pkts = 0;
 //Default Constructor for NIC
@@ -57,7 +36,7 @@ void NetworkInterface::AddP2PLink(NetworkLink* new_link, NetworkInterface* end_i
 }
 
 
-void Send(Packet* pkt) // Send specified packet to p2p peer
+void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peer
 {
 	if(pkt != NULL)
 	{
@@ -68,8 +47,7 @@ void Send(Packet* pkt) // Send specified packet to p2p peer
 	}
 }
  
-void Handle(Event*, Time_t) // Handle event
+void NetworkInterface::Handle(Event*, Time_t) // Handle event
 {
 	
 }
->>>>>>> b154af0c8053eb00973aca2ffddab74692804604
