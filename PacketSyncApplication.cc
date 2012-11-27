@@ -6,7 +6,9 @@ PacketSyncApplication::PacketSyncApplication():Application()
       totalBytesReceived=0;
 }
 
-PacketSyncApplication::SetPeerAddress(int peerAddr)
+//Added by Charmi
+PacketSyncApplication::ReceivedData(int count0)
 {
-  
+      totalPacketsReceived++;
+      totalBytesReceived+=count0;
 }
