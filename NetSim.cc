@@ -14,10 +14,15 @@
 #include "Queue.h"
 #include "Simulator.h"
 #include <iostream>
+#include<cstdlib>
 
 using namespace std;
 
 int main()
 {
-
+      //running the simulation point 2
+      double rate0=0.5;
+      double meanOffTime0=(float)rand()/(float)RAND_MAX; //time in seconds range 0 to 1 sec
+      double meanOnTime0=(float)rand()/(float)RAND_MAX;
+      OnOffApplication OnOff(rate0, meanOffTime0, meanOnTime0);
 }
