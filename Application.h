@@ -6,8 +6,9 @@
 
 #include "CommonDefs.h"
 #include "Handler.h"
-
+#include "Simulator.h"
 class Node;
+//class Simulator;
 
 class Application : public Handler
 {
@@ -19,6 +20,7 @@ class Application : public Handler
   virtual void Handle(Event*, Time_t); // Handle events
 public:
   Node* node;
+  Simulator* sim;
 };
 
 

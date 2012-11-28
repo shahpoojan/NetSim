@@ -1,8 +1,8 @@
 // Definition of Simulator class
 // ECE8893, Final Project, Fall 2012
 
-//#ifndef __SIMULATOR_H__
-//#define __SIMULATOR_H__
+#ifndef __SIMULATOR_H__
+#define __SIMULATOR_H__
 
 #include "CommonDefs.h"
 #include "Handler.h"
@@ -144,7 +144,7 @@ public:
 
   template <typename T, typename OBJ,
     typename U1, typename T1>
-    static void Schedule(double t, void(T::*handler)(U1), OBJ* obj, T1 t1)
+    void Schedule(double t, void(T::*handler)(U1), OBJ* obj, T1 t1)
   {
     EventBase* ev = new Event1<T, OBJ, U1, T1>(t + Simulator::Now(), handler, obj, t1);
     events.insert(ev);
@@ -153,7 +153,7 @@ public:
   template <typename T, typename OBJ,
     typename U1, typename T1,
     typename U2, typename T2>
-    static void Schedule(double t, void(T::*handler)(U1, U2), OBJ* obj, T1 t1, T2 t2)
+    void Schedule(double t, void(T::*handler)(U1, U2), OBJ* obj, T1 t1, T2 t2)
   {
     EventBase* ev = new Event2<T, OBJ, U1, T1, U2, T2>(t + Simulator::Now(), handler, obj, t1, t2);
     events.insert(ev);
@@ -163,7 +163,7 @@ public:
     typename U1, typename T1,
     typename U2, typename T2,
     typename U3, typename T3>
-    static void Schedule(double t, void(T::*handler)(U1, U2, U3), OBJ* obj, T1 t1, T2 t2, T3 t3)
+    void Schedule(double t, void(T::*handler)(U1, U2, U3), OBJ* obj, T1 t1, T2 t2, T3 t3)
   {
     EventBase* ev = new Event3<T, OBJ, U1, T1, U2, T2, U3, T3>(t + Simulator::Now(), handler, obj, t1, t2, t3);
     events.insert(ev);
@@ -182,4 +182,4 @@ public:
   static bool stopped;
   static Time_t now;
 };
-//#endif
+#endif

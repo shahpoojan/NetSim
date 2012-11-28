@@ -9,6 +9,7 @@ OnOffApplication::OnOffApplication(double rate0, double meanOffTime0, double mea
       meanOffTime=meanOffTime0;
       meanOnTime=meanOnTime0;
       node = NULL;
+      sim = NULL;
 }
 
 void OnOffApplication::SetPeerAddress(int peerAddr)
@@ -19,7 +20,7 @@ void OnOffApplication::SetPeerAddress(int peerAddr)
 void OnOffApplication::Start()
 {
 	float start_time = (float)rand()/(float)RAND_MAX;
-	float curr_time = start_time;
+	double curr_time = start_time;
 	
 	if(curr_time < 100.0)
 	{
@@ -28,8 +29,8 @@ void OnOffApplication::Start()
 		for(int i=0; i<num_packets; i++)
 		{
 			//Create Events
-			float time = curr_time + ((float)PACKET_SIZE/(float)rateWhenOn); 
-			EventSet_t.schedule(time, Handle);
+			double time = curr_time + ((float)PACKET_SIZE/(float)rateWhenOn); 
+			sim->Schedule(curr_time + ((float)PACKET_SIZE/(float)rateWhenOn), &(this->Handle), this);
 			
 		}
 
@@ -37,7 +38,10 @@ void OnOffApplication::Start()
 	}
 }
 
-void OnOffApplication::Handle(Event* ev, Time_t t)
+void OnOffApplication::Handle()
 {
 	
 }
+
+void OnOffApplication::foo()
+{}

@@ -40,6 +40,7 @@ int main()
 	PacketSyncApplication *SinkApp = new PacketSyncApplication();
 	H_nodes[i]->AddApplication(OnOff);
 	H_nodes[i]->applications[0]->node = H_nodes[i];
+	H_nodes[i]->applications[0]->sim = sim;
 	H_nodes[i]->AddApplication(SinkApp);
       }
 }

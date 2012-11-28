@@ -8,21 +8,24 @@
 #include "Handler.h"
 
 class Node;
+//class Simulator;
 
 class OnOffApplication  : public Application
 {
   public:
   OnOffApplication(double rate0, double meanOffTime0, double meanOnTime0);
   void         SetPeerAddress(int peerAddr);
-  virtual void Start(); // Start the application
-  virtual void Stop();  // Stop the application
-  virtual void Handle(Event*, Time_t);
+  void Start(); // Start the application
+  void Stop();  // Stop the application
+  void Handle();
+void foo();
   //Node *parentNode;
 private:
   double rateWhenOn;
   double meanOffTime;
   double meanOnTime;
   int    peerAddress;
+  //Simulator sim;
 };
 
 #endif
