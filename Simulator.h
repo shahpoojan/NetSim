@@ -1,11 +1,14 @@
 // Definition of Simulator class
 // ECE8893, Final Project, Fall 2012
 
-#ifndef __SIMULATOR_H__
-#define __SIMULATOR_H__
+//#ifndef __SIMULATOR_H__
+//#define __SIMULATOR_H__
 
 #include "CommonDefs.h"
 #include "Handler.h"
+#include <vector>
+#include <map>
+#include <set>
 
 
 class EventBase
@@ -118,13 +121,13 @@ public:
   }
 };
 
-typedef std::multiset<EventBase*, event_less> EventSet_t;
+typedef std::multiset <EventBase*, event_less> EventSet_t;
 
 class Simulator 
 {
 public:
   Simulator();
-  static void Stop(); // Stop executing events and exit
+  void Stop(); // Stop executing events and exit
   static void Run();  // Starting executing events
   static void StopAt(Time_t);
   //static void Schedule(Handler*, Event*, Time_t); // Schedule a new future event
@@ -171,11 +174,12 @@ public:
   static void ComputeRoutes();                    // Compute routing tables at every node
   // Inherited from Handler
   virtual void Handle(Event*, Time_t);     // Handle the specified event
-  static Simulator* instance
+  static Time_t Now();              // Return current simulation tiome
+  static Simulator* instance;
 public:
   // Your member variables here
   static EventSet_t events;
   static bool stopped;
   static Time_t now;
 };
-#endif
+//#endif
