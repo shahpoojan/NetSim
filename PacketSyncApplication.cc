@@ -1,4 +1,5 @@
 #include"PacketSyncApplication.h"
+//#include "Application.cc"
 
 PacketSyncApplication::PacketSyncApplication():Application()
 {
@@ -11,4 +12,19 @@ void PacketSyncApplication::ReceivedData(int count0)
 {
       totalPacketsReceived++;
       totalBytesReceived+=count0;
+}
+
+void PacketSyncApplication::Start()
+{
+
+}
+
+void PacketSyncApplication::Stop()
+{
+
+}
+
+void PacketSyncApplication::Handle()
+{
+
 }

@@ -11,7 +11,7 @@ typedef enum
   } Event_t ;
 class Event
 {
-  public;
+  public:
     Event() : ev(NoEvent) { }   // Default constructor
     Event(Event_t t) : ev(t) {} // Specific event constructor
     Event_t EventType();        // Return the event type

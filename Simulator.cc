@@ -1,9 +1,9 @@
 #include <math.h>
 #include <sys/time.h>
 #include <iostream>
-#include <vector>
-#include <map>
-#include <set>
+//#include <vector>
+//#include <map>
+//#include <set>
 #include "Simulator.h"
 
 using namespace std;
@@ -13,7 +13,7 @@ Simulator::Simulator()
   instance = this;
 }
 
-void Simulator::TimeToStop()
+void Simulator::Stop()
 {
   stopped = true;
 }
@@ -36,12 +36,17 @@ void Simulator::Run()
 void Simulator::StopAt(Time_t t)
 {
   Simulator::Schedule(t - Simulator::Now(), 
-                      &Simulator::TimeToStop, Simulator::instance);
+                      &Simulator::Stop, Simulator::instance);
 }
 
 Time_t Simulator::Now()
 {
   return now;
+}
+
+void Simulator::Handle(Event*, Time_t)
+{
+
 }
 
 // Simulator static objects

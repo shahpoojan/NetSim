@@ -6,6 +6,9 @@
 
 #include "CommonDefs.h"
 #include "Handler.h"
+#include <vector>
+#include <map>
+#include <set>
 
 
 class EventBase
@@ -23,7 +26,7 @@ class Event0 : public EventBase
   // Type T is the object type for the event handler object
   // Type OBJ is the actual event handler object
 public:
-  Event0(double t, void (T::*f)(void), OBJ* obj0)
+  Event0(double t, void (T::*f)(), OBJ* obj0)
     : EventBase(t), handler(f), obj(obj0){}
   void (T::*handler)(void);
   OBJ*      obj;
@@ -118,13 +121,13 @@ public:
   }
 };
 
-typedef std::multiset<EventBase*, event_less> EventSet_t;
+typedef std::multiset <EventBase*, event_less> EventSet_t;
 
 class Simulator 
 {
 public:
   Simulator();
-  static void Stop(); // Stop executing events and exit
+  void Stop(); // Stop executing events and exit
   static void Run();  // Starting executing events
   static void StopAt(Time_t);
   //static void Schedule(Handler*, Event*, Time_t); // Schedule a new future event
@@ -141,7 +144,7 @@ public:
 
   template <typename T, typename OBJ,
     typename U1, typename T1>
-    static void Schedule(double t, void(T::*handler)(U1), OBJ* obj, T1 t1)
+    void Schedule(double t, void(T::*handler)(U1), OBJ* obj, T1 t1)
   {
     EventBase* ev = new Event1<T, OBJ, U1, T1>(t + Simulator::Now(), handler, obj, t1);
     events.insert(ev);
@@ -150,7 +153,7 @@ public:
   template <typename T, typename OBJ,
     typename U1, typename T1,
     typename U2, typename T2>
-    static void Schedule(double t, void(T::*handler)(U1, U2), OBJ* obj, T1 t1, T2 t2)
+    void Schedule(double t, void(T::*handler)(U1, U2), OBJ* obj, T1 t1, T2 t2)
   {
     EventBase* ev = new Event2<T, OBJ, U1, T1, U2, T2>(t + Simulator::Now(), handler, obj, t1, t2);
     events.insert(ev);
@@ -160,7 +163,7 @@ public:
     typename U1, typename T1,
     typename U2, typename T2,
     typename U3, typename T3>
-    static void Schedule(double t, void(T::*handler)(U1, U2, U3), OBJ* obj, T1 t1, T2 t2, T3 t3)
+    void Schedule(double t, void(T::*handler)(U1, U2, U3), OBJ* obj, T1 t1, T2 t2, T3 t3)
   {
     EventBase* ev = new Event3<T, OBJ, U1, T1, U2, T2, U3, T3>(t + Simulator::Now(), handler, obj, t1, t2, t3);
     events.insert(ev);
@@ -170,8 +173,9 @@ public:
   
   static void ComputeRoutes();                    // Compute routing tables at every node
   // Inherited from Handler
-  virtual void Handle(Event*, Time_t);     // Handle the specified event
-  static Simulator* instance
+  void Handle(Event*, Time_t);     // Handle the specified event
+  static Time_t Now();              // Return current simulation tiome
+  static Simulator* instance;
 public:
   // Your member variables here
   static EventSet_t events;
