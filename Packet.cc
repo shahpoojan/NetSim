@@ -13,3 +13,5 @@ Packet::Packet(int src, int dst, int count)
 	this->destination = dst;
 	this->count = count;
 }
+
+Packet::timetolive = 64;
