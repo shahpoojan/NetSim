@@ -13,7 +13,7 @@ Simulator::Simulator()
   instance = this;
 }
 
-void Simulator::TimeToStop()
+void Simulator::Stop()
 {
   stopped = true;
 }
