@@ -24,10 +24,12 @@ public:
   int getNodeCount();
   static int NodeCount;
   void Handle(Event*, Time_t);
+  std::vector<Application*>      applications;
+
 private:
   unsigned int                   address;    // This node's address
   std::vector<NetworkInterface*> interfaces;
-  std::vector<Application*>      applications;
+//  std::vector<Application*>      applications;
   std::vector<Node*>		 neighbors;
   std::vector<int>               nextHopRoutes;
 //  static int NodeCount;

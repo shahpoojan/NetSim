@@ -1,8 +1,8 @@
 // Definition of PacketSyncApplication class
 // ECE8893, Final Project, Fall 2012
 
-#ifndef __ON_OFF_APPLICATION_H__
-#define __ON_OFF_APPLICATION_H__
+#ifndef __PACKET_SYNC_APPLICATION_H__
+#define __PACKET_SYNC_APPLICATION_H__
 
 #include "Application.h"
 #include "Handler.h"

@@ -7,6 +7,8 @@
 #include "Application.h"
 #include "Handler.h"
 
+class Node;
+
 class OnOffApplication  : public Application
 {
   public:
@@ -15,6 +17,7 @@ class OnOffApplication  : public Application
   virtual void Start(); // Start the application
   virtual void Stop();  // Stop the application
   virtual void Handle(Event*, Time_t);
+  //Node *parentNode;
 private:
   double rateWhenOn;
   double meanOffTime;
