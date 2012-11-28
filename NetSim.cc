@@ -1,6 +1,7 @@
 // Main program for NetSim
 // ECE8893 Final Project, Fall 2012
 
+//#include "Simulator.h"
 #include "Application.h"
 #include "CommonDefs.h"
 #include "DropTailQueue.h"
@@ -15,7 +16,6 @@
 #include "Simulator.h"
 #include <iostream>
 #include<cstdlib>
-
 using namespace std;
 
 int main()
@@ -39,8 +39,8 @@ int main()
 
 	PacketSyncApplication *SinkApp = new PacketSyncApplication();
 	H_nodes[i]->AddApplication(OnOff);
-	H_nodes[i]->applications[0]->node = H_nodes[i];
-	H_nodes[i]->applications[0]->sim = sim;
+	H_nodes[i]->applications[0]->AttachToNode(H_nodes[i]);
+	//((OnOffApplication*)H_nodes[i]->applications[0])->sim = sim;
 	H_nodes[i]->AddApplication(SinkApp);
       }
 }

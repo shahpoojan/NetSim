@@ -5,7 +5,7 @@
 #define __PACKET_SYNC_APPLICATION_H__
 
 #include "Application.h"
-#include "Handler.h"
+//#include "Handler.h"
 
 class PacketSyncApplication  : public Application
 {
@@ -15,7 +15,7 @@ class PacketSyncApplication  : public Application
   void ReceivedData(int count0);
   virtual void Start(); // Start the application
   virtual void Stop();  // Stop the application
-  virtual void Handle(Event*, Time_t);
+  virtual void Handle();
 private:
   int totalPacketsReceived;  // statistics
   int totalBytesReceived;

@@ -1,7 +1,11 @@
 #include <cstddef>
 #include <cstdlib>
 #include"OnOffApplication.h"
+#include "Simulator.h"
+//#include "Application.cc"
 #define PACKET_SIZE 8
+
+//typedef std::multiset <EventBase*, event_less> EventSet_t;
 
 OnOffApplication::OnOffApplication(double rate0, double meanOffTime0, double meanOnTime0):Application()
 {
@@ -9,7 +13,7 @@ OnOffApplication::OnOffApplication(double rate0, double meanOffTime0, double mea
       meanOffTime=meanOffTime0;
       meanOnTime=meanOnTime0;
       node = NULL;
-      sim = NULL;
+      //sim = NULL;
 }
 
 void OnOffApplication::SetPeerAddress(int peerAddr)
@@ -30,7 +34,7 @@ void OnOffApplication::Start()
 		{
 			//Create Events
 			double time = curr_time + ((float)PACKET_SIZE/(float)rateWhenOn); 
-			sim->Schedule(curr_time + ((float)PACKET_SIZE/(float)rateWhenOn), &(this->Handle), this);
+			sim->Schedule(curr_time + ((float)PACKET_SIZE/(float)rateWhenOn), &OnOffApplication::Handle, this);
 			
 		}
 
@@ -38,10 +42,12 @@ void OnOffApplication::Start()
 	}
 }
 
+void OnOffApplication::Stop()
+{
+
+}
+
 void OnOffApplication::Handle()
 {
 	
 }
-
-void OnOffApplication::foo()
-{}

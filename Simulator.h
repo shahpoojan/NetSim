@@ -26,7 +26,7 @@ class Event0 : public EventBase
   // Type T is the object type for the event handler object
   // Type OBJ is the actual event handler object
 public:
-  Event0(double t, void (T::*f)(void), OBJ* obj0)
+  Event0(double t, void (T::*f)(), OBJ* obj0)
     : EventBase(t), handler(f), obj(obj0){}
   void (T::*handler)(void);
   OBJ*      obj;
@@ -173,7 +173,7 @@ public:
   
   static void ComputeRoutes();                    // Compute routing tables at every node
   // Inherited from Handler
-  virtual void Handle(Event*, Time_t);     // Handle the specified event
+  void Handle(Event*, Time_t);     // Handle the specified event
   static Time_t Now();              // Return current simulation tiome
   static Simulator* instance;
 public:

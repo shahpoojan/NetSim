@@ -6,12 +6,12 @@
 
 #include <vector>
 #include "Packet.h"
-#include "Handler.h"
+//#include "Handler.h"
 
 class NetworkInterface;
 class Application;
 
-class Node : public Handler
+class Node //: public Handler
 {
 public:
   Node(int addr); // Constructor
@@ -23,7 +23,7 @@ public:
   void Receive(int count, int source);  // Received count bytes from specified source
   int getNodeCount();
   static int NodeCount;
-  void Handle(Event*, Time_t);
+  //void Handle(Event*, Time_t);
   std::vector<Application*>      applications;
 
 private:

@@ -114,7 +114,7 @@ void Node::Receive(int count, int source)
 	// Send it to the ApplicationSync
 }
 
-void Node::Handle(Event* ev, Time_t t)
+/*void Node::Handle(Event* ev, Time_t t)
 {
 	if(ev->EventType == 0)
 	{
@@ -124,4 +124,4 @@ void Node::Handle(Event* ev, Time_t t)
 
 		this->Send(count, dest);
 	}	
-}
+}*/

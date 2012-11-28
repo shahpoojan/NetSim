@@ -5,14 +5,15 @@
 #define __NETWORK_INTERFACE_H__
 
 #include "CommonDefs.h"
-#include "Handler.h"
+#include "Event.h"
+//#include "Handler.h"
 
 class NetworkLink;
 class Packet;
 class Queue;
 class Node;
 
-class NetworkInterface : public Handler
+class NetworkInterface// : public Handler
 {
 public:
   NetworkInterface(); // Constructor

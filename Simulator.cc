@@ -44,6 +44,11 @@ Time_t Simulator::Now()
   return now;
 }
 
+void Simulator::Handle(Event*, Time_t)
+{
+
+}
+
 // Simulator static objects
 EventSet_t  Simulator::events;
 bool        Simulator::stopped = false;

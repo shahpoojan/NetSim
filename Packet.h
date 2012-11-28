@@ -13,6 +13,6 @@ public:
   int source;      // Source Node address
   int destination; //Destination Node Address
   int count;       // Number of bytes
-  static int timetolive;
+  int timetolive;
 };
 #endif
