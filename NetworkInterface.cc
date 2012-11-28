@@ -1,4 +1,5 @@
 #include "NetworkInterface.h"
+#include "NetworkLink.h"
 #include "Queue.h"
 #include <cstddef>
 
@@ -36,12 +37,10 @@ void NetworkInterface::AddP2PLink(NetworkLink* new_link, NetworkInterface* end_i
 }
 
 
-void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peer
+void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peerorkLink::Send(Packet*)
 {
 	if(pkt != NULL)
 	{
-		if(Enque(pkt) == false)		//if queue is full, the packet is dropped, hence increment count
-			num_dropped_pkts++;
 		
 		//add transmit event to the event list
 	}
