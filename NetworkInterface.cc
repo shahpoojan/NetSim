@@ -1,13 +1,15 @@
 #include "NetworkInterface.h"
 #include "NetworkLink.h"
-#include "Queue.h"
+#include "DropTailQueue.h"
 #include <cstddef>
+#include <iostream>
 
+using namespace std;
 long unsigned int num_dropped_pkts = 0;
 //Default Constructor for NIC
 NetworkInterface::NetworkInterface()
 {
-	queue = NULL;
+	queue = new DropTailQueue(1000);
 	link = NULL;
 	node = NULL;
 	busy = false;
@@ -17,7 +19,7 @@ NetworkInterface::NetworkInterface()
 //Constructor for Network Interface. The AddNeighbor function will pass the required NIC data rate as argument.
 NetworkInterface::NetworkInterface(double i_data_rate)
 {
-	queue = NULL;
+	queue = new DropTailQueue(1000);
 	link = NULL;
 	node = NULL;
 	busy = false;
@@ -45,7 +47,7 @@ void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peerork
 	}
 }
  
-void NetworkInterface::Handle(Event*, Time_t) // Handle event
+void NetworkInterface::Handle() // Handle event
 {
-	
+	cout << "Interface handle called" << endl;	
 }

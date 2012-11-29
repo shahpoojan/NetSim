@@ -2,6 +2,10 @@
 #include <iostream>
 #include "NetworkInterface.h"
 #include <iostream>
+#include "Simulator.h"
+#include "DropTailQueue.h"
+#include "NetworkLink.h"
+
 
 using namespace std;
 //#include "Packet.cc"
@@ -13,6 +17,7 @@ using namespace std;
 Node::Node(int addr)
 {
 	this->address = addr;
+	sim = NULL;
 }
 
 int Node::getNodeCount()
@@ -113,7 +118,11 @@ void Node::Send(int count, int dest)
 	// Packet *p = applications[0].generate()
 	//// Look into routing table
 	int index = 0;
-	interfaces[index]->Send(p);
+	interfaces[index]->queue->Enque(p);
+	double data_rate = interfaces[index]->link->dataRate;
+	
+	Time_t transmit_time = (double)(((DropTailQueue*)interfaces[index]->queue)->getLength())/data_rate;
+	sim->Schedule(transmit_time, &NetworkInterface::Handle, interfaces[index]);
 }
 
 void Node::Receive(int count, int source)
@@ -125,6 +134,7 @@ void Node::Receive(int count, int source)
 void Node::Handle(int peer_addr, int size)
 {
 	cout << "Node handle called for " << address  << endl;
+	this->Send(size, peer_addr);
 }
 
 /*void Node::Handle(Event* ev, Time_t t)

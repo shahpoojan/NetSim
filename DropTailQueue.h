@@ -19,6 +19,8 @@ public:
   //virtual Packet* Deque();      // Remove a packet from the queue
   bool Enque(Packet*);  // Add a packet to the queue, true if successful
   Packet* Deque();      // Remove a packet from the queue
+  int getLength();
+
 private:
   list<Packet*> PacketQueue;
   int max_length;

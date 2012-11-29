@@ -10,7 +10,7 @@
 
 class NetworkLink;
 class Packet;
-class Queue;
+class DropTailQueue;
 class Node;
 
 class NetworkInterface// : public Handler
@@ -20,10 +20,10 @@ public:
   NetworkInterface(double); //Constructor with data rate as argument (makes the implementation flexible)
   void AddP2PLink(NetworkLink*, NetworkInterface*, double link_delay);
   void Send(Packet*); // Send specified packet to p2p peer
-  void Handle(Event*, Time_t); // Handle event
+  void Handle(); // Handle event
 public:
   NetworkLink*  link;
-  Queue*        queue; // Associated node
+  DropTailQueue*        queue; // Associated node
   Node*         node;  // Associated node
   bool          busy;  // true if busy sending a packet
   //added by apkarande

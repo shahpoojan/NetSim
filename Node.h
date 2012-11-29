@@ -10,6 +10,7 @@
 
 class NetworkInterface;
 class Application;
+class Simulator;
 
 class Node //: public Handler
 {
@@ -27,6 +28,7 @@ public:
   //void Handle(Event*, Time_t);
   std::vector<Application*>      applications;
   void Handle(int peer_addr, int size);
+  Simulator* sim;
 
 private:
   unsigned int                   address;    // This node's address

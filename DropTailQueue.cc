@@ -33,3 +33,8 @@ Packet* DropTailQueue::Deque()
 
 	return NULL;
 }
+
+int DropTailQueue::getLength()
+{
+	return length;
+}
