@@ -24,7 +24,7 @@ void PacketSyncApplication::Stop()
 
 }
 
-void PacketSyncApplication::Handle()
+void PacketSyncApplication::Handle(Node*, int)
 {
 
 }

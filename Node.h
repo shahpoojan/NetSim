@@ -23,8 +23,10 @@ public:
   void Receive(int count, int source);  // Received count bytes from specified source
   int getNodeCount();
   static int NodeCount;
+  int GetAddr();
   //void Handle(Event*, Time_t);
   std::vector<Application*>      applications;
+  void Handle(int peer_addr, int size);
 
 private:
   unsigned int                   address;    // This node's address

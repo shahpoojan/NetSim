@@ -19,7 +19,7 @@ class Application// : public Handler
   void AttachToNode(Node*); // Attach this application to a node
   virtual void Start() = 0; // Start the application
   virtual void Stop()  = 0; // Stop the application
-  virtual void Handle() = 0; // Handle events
+  virtual void Handle(Node*, int) = 0; // Handle events
 public:
   Node* node;
   Simulator* sim;

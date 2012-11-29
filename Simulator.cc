@@ -15,6 +15,7 @@ Simulator::Simulator()
 
 void Simulator::Stop()
 {
+  cout << "Simuator stopped!!" << endl;
   stopped = true;
 }
 

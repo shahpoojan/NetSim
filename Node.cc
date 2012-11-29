@@ -1,6 +1,9 @@
 #include "Node.h"
 #include <iostream>
 #include "NetworkInterface.h"
+#include <iostream>
+
+using namespace std;
 //#include "Packet.cc"
 
 #define INFINITY 10000000
@@ -15,6 +18,11 @@ Node::Node(int addr)
 int Node::getNodeCount()
 {
 //	return Node::NodeCount;
+}
+
+int Node::GetAddr()
+{
+	return address;
 }
 
 void Node::ComputeRoutes(vector<Node*> nodes)
@@ -112,6 +120,11 @@ void Node::Receive(int count, int source)
 {
 	Packet *p = new Packet(source, this->address, count);
 	// Send it to the ApplicationSync
+}
+
+void Node::Handle(int peer_addr, int size)
+{
+	cout << "Node handle called for " << address  << endl;
 }
 
 /*void Node::Handle(Event* ev, Time_t t)

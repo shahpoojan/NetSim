@@ -7,6 +7,8 @@
 #include "Application.h"
 //#include "Handler.h"
 
+class Node;
+
 class PacketSyncApplication  : public Application
 {
   public:
@@ -15,7 +17,7 @@ class PacketSyncApplication  : public Application
   void ReceivedData(int count0);
   virtual void Start(); // Start the application
   virtual void Stop();  // Stop the application
-  virtual void Handle();
+  virtual void Handle(Node*, int);
 private:
   int totalPacketsReceived;  // statistics
   int totalBytesReceived;
