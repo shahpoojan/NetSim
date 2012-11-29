@@ -41,7 +41,6 @@ void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peerork
 {
 	if(pkt != NULL)
 	{
-		
 		//add transmit event to the event list
 	}
 }
