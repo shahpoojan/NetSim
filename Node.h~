@@ -36,7 +36,7 @@ public:
   NetworkInterface* GetInterface(int);
   //void Handle(Event*, Time_t);
   std::vector<Application*>      applications;
-  void PacketGenerationComplete(int peer_addr, int size);
+  void Handle(int peer_addr, int size);
   Simulator* sim;
 
 private:

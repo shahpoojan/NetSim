@@ -1,0 +1,16 @@
+#include <iostream.h>
+#include <map>
+
+int main()
+{
+	// Multimap is similar, but allow duplicate keys
+	typedef multimap<double,int> StrIntMultiMap_t;
+	StrIntMultiMap_t simm;
+	simm.insert(StrIntPair_t("Yugo", 5000));
+	simm.insert(StrIntPair_t("Ford", 10000));
+	simm.insert(StrIntPair_t("Ferrari", 100000));
+	simm.insert(StrIntPair_t("Ferrari", 300000));
+	simm.insert(StrIntPair_t("Ferrari", 200000));
+	cout << "Final multimap print" << endl;
+	Print(simm.begin(), simm.end());
+}
