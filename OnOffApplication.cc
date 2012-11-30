@@ -49,7 +49,7 @@ void OnOffApplication::Start(Node* node)
 	{
 		//Create Events
 		curr_time = curr_time + PACKET_SIZE/rateWhenOn;
-		sim->Schedule(curr_time, &Node::PacketGenerationComplete, node, peerAddress, PACKET_SIZE);
+		sim->Schedule(curr_time, &Node::PacketGenerationComplete, node, node->GetAddr(), peerAddress, PACKET_SIZE);
 
 	}
 }

@@ -26,7 +26,9 @@ public:
   NetworkInterface(double, Node*); //Constructor with data rate as argument (makes the implementation flexible)
   void AddP2PLink(NetworkLink*, NetworkInterface*);
   void Send(Packet*); // Send specified packet to p2p peer
+  void Send();
   void Handle(); // Handle event
+  void Receive(Packet*);
 public:
   NetworkLink*  link;
   DropTailQueue*        queue; // Associated node

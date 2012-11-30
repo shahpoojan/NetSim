@@ -22,13 +22,14 @@ class Simulator;
 class Node //: public Handler
 {
 public:
-  Node(int addr); // Constructor
+  Node (int addr); //Constructor
+  Node(int addr, Simulator* simu); // Constructor
   void ComputeRoutes(std::vector<Node*> nodes);     // Populate the routing table
   void AddNeighbor(int, Node*, int);  // Add a new interface, p2p link and neighbor node
   void AddInterface  (NetworkInterface*);
   void AddApplication(Application*);
-  void Send(int count, int dest);  // Send count bytes to specified destination
-  void Receive(int count, int source);  // Received count bytes from specified source
+  void Send(int sourceaddr, int count, int dest);  // Send count bytes to specified destination
+  void Receive(Packet*);  // Received count bytes from specified source
   int getNodeCount();
   static int NodeCount;
   unsigned char node_type;		//0: G, 1: R, 2: H
@@ -36,7 +37,7 @@ public:
   NetworkInterface* GetInterface(int);
   //void Handle(Event*, Time_t);
   std::vector<Application*>      applications;
-  void PacketGenerationComplete(int peer_addr, int size);
+  void PacketGenerationComplete(int sourceaddr, int peer_addr, int size);
   Simulator* sim;
   int getNextHopRoute(int);
   int GetSize();

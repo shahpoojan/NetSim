@@ -48,8 +48,20 @@ void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peerork
 {
 	if(pkt != NULL)
 	{
+		
 		//add transmit event to the event list
 	}
+}
+
+void NetworkInterface::Send() //Send specified packet to p2p off the
+{
+	Packet* p = queue->Deque();
+	link->Send(p, this);
+}
+
+void NetworkInterface::Receive(Packet* p)
+{
+	node->Receive(p);
 }
  
 void NetworkInterface::Handle() // Handle event
