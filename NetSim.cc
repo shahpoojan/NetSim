@@ -225,20 +225,23 @@ int main()
 //	Print(sim->events.begin(), sim->events.end());
 
 
-
-//	for(int i=0; i<nodes.size(); i++)
+	cout << "Computing routes" << endl;
+	for(int i=0; i<nodes.size(); i++)
 	{
-		nodes[0]->ComputeRoutes(nodes);
+		nodes[i]->ComputeRoutes(nodes);
+		cout << "computed for " << i << endl;
 	}
-	for(int i=0; i<nodes[0]->path.size(); i++)
+	/*for(int i=0; i<nodes[0]->path.size(); i++)
 	{
 	Node* newnode=nodes[0]->path.front();
 	nodes[0]->path.pop_front();
 	nodes[0]->path.push_back(newnode);
-	}
+	}*/
+
+	/*cout << "Routes computes" << endl;
 	for(int i=0;i<28; i++)
 	{
-		cout << i << " = " << nodes[0]->getNextHopRoute(i) << endl;
-	}
+		cout << i << " = " << nodes[1]->getNextHopRoute(i) << endl;
+	}*/
 	//Simulator::Run();
 }

@@ -43,7 +43,7 @@ void OnOffApplication::Start(Node* node)
 	sim->Schedule(Simulator::now+meanOnTime, &OnOffApplication::Handle, (OnOffApplication*)(node->applications[0]), node,1);
 	
 	int num_packets = meanOnTime*rateWhenOn/(PACKET_SIZE*8);
-	Time_t curr_time = Simulator::now;
+	Time_t curr_time = 0;
 
 	for(int i=0; i<num_packets; i++)
 	{
