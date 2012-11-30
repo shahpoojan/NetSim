@@ -215,22 +215,23 @@ int main()
 	}
 	
 
-	Print(sim->events.begin(), sim->events.end());
+//	Print(sim->events.begin(), sim->events.end());
+
+
 
 //	for(int i=0; i<nodes.size(); i++)
 	{
-		nodes[12]->ComputeRoutes(nodes);
+		nodes[0]->ComputeRoutes(nodes);
 	}
-	for(int i=0; i<nodes[12]->path.size(); i++)
+	for(int i=0; i<nodes[0]->path.size(); i++)
 	{
-	Node* newnode=nodes[12]->path.front();
-	nodes[12]->path.pop_front();
-	nodes[12]->path.push_back(newnode);
-	cout<<newnode->GetAddr()<<endl;
+	Node* newnode=nodes[0]->path.front();
+	nodes[0]->path.pop_front();
+	nodes[0]->path.push_back(newnode);
 	}
-	for(int i=0;i<24; i++)
+	for(int i=0;i<28; i++)
 	{
-		cout << i << " = " << nodes[12]->getNextHopRoute(i) << endl;
+		cout << i << " = " << nodes[0]->getNextHopRoute(i) << endl;
 	}
 	//Simulator::Run();
 }

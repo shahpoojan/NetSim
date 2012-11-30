@@ -22,12 +22,17 @@ Node::Node(int addr)
 	distance = 20;
 	solved = 0;
 	path_from = NULL;
-	nextHopRoutes.reserve(24);
+	nextHopRoutes.reserve(28);
 }
 
 int Node::getNodeCount()
 {
 	//	return Node::NodeCount;
+}
+
+int Node::GetSize()
+{
+	return neighbors.size();	
 }
 
 int Node::GetAddr()
@@ -58,21 +63,23 @@ void Node::djikstra(vector<Node*>nodes, int addr)
 {
 	list<Node*>computed_route;
 	Node* dest = nodes[addr];
+	//cout<<"dest="<<addr<<endl;
 	computed_route.push_back(dest);
-
+	//cout<<"prev node="<<dest->path_from->GetAddr()<<endl;
 	Node* prev_node=dest->path_from;
 	do
 	{
 		list<Node*>::const_iterator cii = path.begin();
 		for(; cii!=path.end(); cii++)
 		{
-			if(prev_node==path.front())
+			if(prev_node->GetAddr()==(*cii)->GetAddr())
 			{
-				Node* add=path.front();
+				Node* add=(*cii);
 				computed_route.push_back(add);
-				path.pop_front();
-				path.push_back(add);
-				prev_node=add->path_from;				
+			//	path.pop_front();
+			//	path.push_back(add);
+				prev_node=add->path_from;	
+		//		cout<<"prev node="<<prev_node->GetAddr()<<endl;			
 				break;
 			}
 		}			
@@ -83,64 +90,75 @@ void Node::djikstra(vector<Node*>nodes, int addr)
 	nextHopRoutes[addr] = next_node->GetAddr();
 }
 
-void Node::bsf()
+void Node::bsf(vector<Node*>nodes)
 {
 	//dijakstra's algorithmy
 	Node* source=this;
+	int added=0;
 	source->distance=0;
 	source->solved=1;
 	path.push_back(source);
 	int distance=20;
-	cout<<"source addr="<<source->GetAddr()<<endl;
+	//cout<<"source addr="<<source->GetAddr()<<endl;
 	do
 	{
 		int solved_num=path.size();
-		cout<<"path size="<<solved_num<<endl;
+		//cout<<"path size="<<solved_num<<endl;
 		Node* add_to_path;		
 		for(int k=0; k<solved_num; k++)
 		{
+			if(k==0)
+				distance=20;
 			Node* solved;
 			solved=path.front();
 			path.pop_front();
 			path.push_back(solved);
-			cout<<"current solved node="<<solved->GetAddr()<<endl;
+		//	cout<<"\ncurrent solved node="<<solved->GetAddr()<<endl;
 			int size=solved->neighbors.size();
-			cout<<"neighbor size="<<size<<endl;
+		//	cout<<"neighbor size="<<size<<endl;
 			for(int l=0; l<size; l++)
 			{
 				Node* neighbour =solved->neighbors.front();
 				solved->neighbors.pop_front();
 				solved->neighbors.push_back(neighbour);
-				cout<<"distance="<<distance<<endl;
+			//	cout<<"distance="<<distance<<endl;
 				if(neighbour->solved==1)
 					continue;
+			//	cout<<"neighbour addr="<<neighbour->GetAddr()<<endl;
 				if(distance>solved->distance+1)
 				{
 					distance=solved->distance+1;
 					add_to_path=neighbour;
 					neighbour->path_from=solved;
-					cout<<"add to path="<<neighbour->GetAddr()<<endl;
-					cout<<"new distance="<<distance<<endl;
+					 //cout<<"current solved node="<<solved->GetAddr()<<endl;
+					 //cout<<"neighbor size="<<size<<endl;
+					//cout<<"\nadd to path="<<neighbour->GetAddr()<<endl;
+					//cout<<"new distance="<<distance<<endl;
+					added=1;
 				}
 			}		
 		}
-		if(distance!=20)
+		if(added==1)
 		{
+			added=0;
 			add_to_path->distance=distance;
 			add_to_path->solved=1;
 			path.push_back(add_to_path);
 		}
-	}while(distance!=20);
+
+	}while(path.size() != nodes.size());
 }
 
 void Node::ComputeRoutes(vector<Node*> nodes)
 {
 
-	bsf();
-	for(int i=0;i<24;i++)
+	 bsf(nodes);
+	for(int i=0;i<nodes.size();i++)
 	{
 		if(i!=this->address)
 			djikstra(nodes,i);
+		else
+			nextHopRoutes[i] = 0;
 	}
 	/*int* dist = new int(nodes.size());
 	  int* prev = new int(nodes.size());
@@ -200,6 +218,7 @@ void Node::AddNeighbor(int interface_a, Node* n, int interface_b)
 {
 	if(n != NULL)
 	{
+		cout << "Pushgin the neighbors" << endl;
 		//Node::NodeCount++;
 		neighbors.push_back(n);
 		nextHopRoutes.push_back(n->address);
@@ -207,6 +226,7 @@ void Node::AddNeighbor(int interface_a, Node* n, int interface_b)
 	else
 		cout << "ERROR!\nNULL node" << endl;	
 	CreateBiDirLinks(this->GetInterface(interface_a),n->GetInterface(interface_b));
+        cout << address << " Neigh size = " << neighbors.size() << endl;
 }
 
 void Node::AddApplication(Application* app)

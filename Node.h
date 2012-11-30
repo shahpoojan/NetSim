@@ -39,12 +39,12 @@ public:
   void PacketGenerationComplete(int peer_addr, int size);
   Simulator* sim;
   int getNextHopRoute(int);
-
+  int GetSize();
 
 std::list<Node*>               path;
 
 private:
-  void bsf();
+  void bsf(std::vector<Node*>nodes);
   void djikstra(std::vector<Node*>,int);
   int distance;
   int solved;
