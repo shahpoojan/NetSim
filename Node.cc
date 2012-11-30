@@ -218,13 +218,16 @@ void Node::AddNeighbor(int interface_a, Node* n, int interface_b)
 {
 	if(n != NULL)
 	{
-		cout << "Pushgin the neighbors" << endl;
+		cout << "Pushing the neighbors" << endl;
 		//Node::NodeCount++;
 		neighbors.push_back(n);
 		nextHopRoutes.push_back(n->address);
+		
+		n->neighbors.push_back(this);
+		n->nextHopRoutes.push_back(this->address);
 	}
 	else
-		cout << "ERROR!\nNULL node" << endl;	
+	cout << "ERROR!\nNULL node" << endl;	
 	CreateBiDirLinks(this->GetInterface(interface_a),n->GetInterface(interface_b));
         cout << address << " Neigh size = " << neighbors.size() << endl;
 }

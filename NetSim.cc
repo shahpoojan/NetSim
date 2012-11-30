@@ -194,6 +194,13 @@ int main()
 
 
 	CreateTopology(H_nodes, R_nodes, G_nodes);
+	cout << "*********************************************************" << endl;
+	for(int i = 0; i < 4; i++)
+		cout << "G neighbor size: " << G_nodes[i]->GetSize() << endl;
+	for(int i = 0;i < 8; i++)
+		cout << "R neighbor size: " << R_nodes[i]->GetSize() << endl;
+	for(int i = 0;i < 8; i++)
+		cout << "H neighbor size: " << H_nodes[i]->GetSize() << endl;
 
 	for(int i=0; i<16; i++)
 	{
