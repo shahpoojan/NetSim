@@ -24,7 +24,7 @@ class Node //: public Handler
 public:
   Node(int addr); // Constructor
   void ComputeRoutes(std::vector<Node*> nodes);     // Populate the routing table
-  void AddNeighbor(Node*);  // Add a new interface, p2p link and neighbor node
+  void AddNeighbor(int, Node*, int);  // Add a new interface, p2p link and neighbor node
   void AddInterface  (NetworkInterface*);
   void AddApplication(Application*);
   void Send(int count, int dest);  // Send count bytes to specified destination
@@ -36,7 +36,7 @@ public:
   NetworkInterface* GetInterface(int);
   //void Handle(Event*, Time_t);
   std::vector<Application*>      applications;
-  void Handle(int peer_addr, int size);
+  void PacketGenerationComplete(int peer_addr, int size);
   Simulator* sim;
 
 private:
@@ -48,6 +48,6 @@ private:
 //  static int NodeCount;
 };
 
+void CreateBiDirLinks(NetworkInterface* a, NetworkInterface* b);
 
-  
 #endif
