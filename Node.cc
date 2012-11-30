@@ -5,7 +5,7 @@
 #include "Simulator.h"
 #include "DropTailQueue.h"
 #include "NetworkLink.h"
-#include "Packet.cc"
+#include "Packet.h"
 #include "Application.h"
 
 using namespace std;
@@ -19,11 +19,15 @@ Node::Node(int addr)
 {
 	this->address = addr;
 	sim = NULL;
+	distance = 20;
+	solved = 0;
+	path_from = NULL;
+	nextHopRoutes.reserve(24);
 }
 
 int Node::getNodeCount()
 {
-//	return Node::NodeCount;
+	//	return Node::NodeCount;
 }
 
 int Node::GetAddr()
@@ -31,10 +35,15 @@ int Node::GetAddr()
 	return address;
 }
 
+int Node:: getNextHopRoute(int i)
+{
+	return nextHopRoutes[i];
+}
+
 NetworkInterface* Node::GetInterface(int i)
 {
 	if(!interfaces.empty())
-	return this->interfaces[i];
+		return this->interfaces[i];
 	else
 	{
 		cout << "Null Interface" << endl;
@@ -42,52 +51,141 @@ NetworkInterface* Node::GetInterface(int i)
 	}
 }
 
+
+/// Charmi's code! Not my code!
+
+void Node::djikstra(vector<Node*>nodes, int addr)
+{
+	list<Node*>computed_route;
+	Node* dest = nodes[addr];
+	computed_route.push_back(dest);
+	
+	Node* prev_node=dest->path_from;
+	do
+	{
+		list<Node*>::const_iterator cii = path.begin();
+		for(; cii!=path.end(); cii++)
+		{
+			if(prev_node==path.front())
+			{
+				Node* add=path.front();
+				computed_route.push_back(add);
+				path.pop_front();
+				path.push_back(add);
+				prev_node=add->path_from;				
+				break;
+			}
+		}			
+	}while(prev_node!=NULL);
+
+	computed_route.pop_back();
+	Node* next_node = computed_route.back();
+	nextHopRoutes[addr] = next_node->GetAddr();
+}
+
+void Node::bsf()
+{
+	//dijakstra's algorithmy
+	Node* source=this;
+	source->distance=0;
+	source->solved=1;
+	path.push_back(source);
+	int distance=20;
+	cout<<"source addr="<<source->GetAddr()<<endl;
+	do
+	{
+		int solved_num=path.size();
+		cout<<"path size="<<solved_num<<endl;
+		Node* add_to_path;		
+		for(int k=0; k<solved_num; k++)
+		{
+			Node* solved;
+			solved=path.front();
+			path.pop_front();
+			path.push_back(solved);
+			cout<<"current solved node="<<solved->GetAddr()<<endl;
+			int size=solved->neighbors.size();
+			cout<<"neighbor size="<<size<<endl;
+			for(int l=0; l<size; l++)
+			{
+				Node* neighbour =solved->neighbors.front();
+				solved->neighbors.pop_front();
+				solved->neighbors.push_back(neighbour);
+				cout<<"distance="<<distance<<endl;
+				if(neighbour->solved==1)
+					continue;
+				if(distance>solved->distance+1)
+				{
+					distance=solved->distance+1;
+					add_to_path=neighbour;
+					neighbour->path_from=solved;
+					cout<<"add to path="<<neighbour->GetAddr()<<endl;
+					cout<<"new distance="<<distance<<endl;
+				}
+			}		
+		}
+		if(distance!=20)
+		{
+			add_to_path->distance=distance;
+			add_to_path->solved=1;
+			path.push_back(add_to_path);
+		}
+	}while(distance!=20);
+}
+
 void Node::ComputeRoutes(vector<Node*> nodes)
 {
-	int* dist = new int(nodes.size());
-	int* prev = new int(nodes.size());
 
-	for(int i=0; i<nodes.size(); i++)
+	bsf();
+	for(int i=0;i<24;i++)
 	{
-		dist[i] = INFINITY;
-		prev[i] = -1;
+		if(i!=this->address)
+			djikstra(nodes,i);
 	}
+	/*int* dist = new int(nodes.size());
+	  int* prev = new int(nodes.size());
 
-	for(int i=0; i<neighbors.size(); i++)
-	{
-		dist[neighbors[i]->address] = 1;
-		dist[neighbors[i]->address] = this->address;
-	}
+	  for(int i=0; i<nodes.size(); i++)
+	  {
+	  dist[i] = INFINITY;
+	  prev[i] = -1;
+	  }
 
-	while(!nodes.empty())
-	{	
-		int min = INFINITY;
-		int index = -1;
-		for(int i=0; i<nodes.size(); i++)
-		{
-			if(min < dist[i])
-			{
-				index = i;
-				min = dist[i];
-			}
-			
-		}
+	  for(int i=0; i<neighbors.size(); i++)
+	  {
+	  dist[neighbors[i]->address] = 1;
+	  dist[neighbors[i]->address] = this->address;
+	  }
 
-		for(int i=0; i<nodes[index]->neighbors.size(); i++)
-		{
-			if(dist[nodes[index]->neighbors[i]->address] > (min + 1))
-			{
-				dist[nodes[index]->neighbors[i]->address] = min + 1;
-				prev[nodes[index]->neighbors[i]->address] = nodes[index]->address;
-			}
-		}
+	  while(!nodes.empty())
+	  {	
+	  int min = INFINITY;
+	  int index = -1;
+	  for(int i=0; i<nodes.size(); i++)
+	  {
+	  if(min < dist[i])
+	  {
+	  index = i;
+	  min = dist[i];
+	  }
 
-		/// Do the Swapping
-		//int temp = dist[index];
-		//dist[index];
+	  }
 
-	}
-		
+	  for(int i=0; i<nodes[index]->neighbors.size(); i++)
+	  {
+	  if(dist[nodes[index]->neighbors[i]->address] > (min + 1))
+	  {
+	  dist[nodes[index]->neighbors[i]->address] = min + 1;
+	  prev[nodes[index]->neighbors[i]->address] = nodes[index]->address;
+	  }
+	  }
+
+	/// Do the Swapping
+	//int temp = dist[index];
+	//dist[index];
+
+	}*/
+
 }
 
 void Node::AddInterface(NetworkInterface* interface)
@@ -120,7 +218,7 @@ void Node::AddApplication(Application* app)
 	}
 	else
 		cout << "ERROR!\nNull Application" << endl;
-	
+
 }
 
 void Node::Send(int count, int dest)
@@ -151,13 +249,13 @@ void Node::PacketGenerationComplete(int peer_addr, int size)
 }
 
 /*void Node::Handle(Event* ev, Time_t t)
-{
-	if(ev->EventType == 0)
-	{
-		int size = neighbors.size();
-		int dest = rand()%size;
-		int count = rand()%100;
+  {
+  if(ev->EventType == 0)
+  {
+  int size = neighbors.size();
+  int dest = rand()%size;
+  int count = rand()%100;
 
-		this->Send(count, dest);
-	}	
-}*/
+  this->Send(count, dest);
+  }	
+  }*/

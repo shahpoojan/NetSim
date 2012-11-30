@@ -5,7 +5,7 @@
 #define __NODE_H__
 
 #include <vector>
-
+#include <list>
 
 
 #include "Packet.h"
@@ -38,13 +38,22 @@ public:
   std::vector<Application*>      applications;
   void PacketGenerationComplete(int peer_addr, int size);
   Simulator* sim;
+  int getNextHopRoute(int);
+
+std::list<Node*>               path;
 
 private:
+  void bsf();
+  void djikstra(std::vector<Node*>,int);
+  int distance;
+  int solved;
+  Node *path_from;
   unsigned int                   address;    // This node's address
   std::vector<NetworkInterface*> interfaces;
 //  std::vector<Application*>      applications;
-  std::vector<Node*>		 neighbors;
+  std::list<Node*>		 neighbors;
   std::vector<int>               nextHopRoutes;
+  //std::list<Node*> 		 path;
 //  static int NodeCount;
 };
 

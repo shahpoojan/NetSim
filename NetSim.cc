@@ -21,6 +21,8 @@
 
 using namespace std;
 
+vector<Node*>nodes;
+int node_count = 0;
 template<class ForwardIterator>
 void Print(ForwardIterator b, ForwardIterator e, bool addEndl = true)
 {
@@ -57,6 +59,7 @@ void CreateTopology(Node** H_nodes, Node** R_nodes, Node** G_nodes)
 			G_nodes[i]->AddInterface(interface);
 			G_nodes[i]->node_type = G_NODE;
 		}
+		nodes.push_back(G_nodes[i]);
 	}
 
 	for(int i=0; i< 8; i++)
@@ -69,6 +72,7 @@ void CreateTopology(Node** H_nodes, Node** R_nodes, Node** G_nodes)
 			R_nodes[i]->AddInterface(interface);
 			R_nodes[i]->node_type = R_NODE;
                 }
+		nodes.push_back(R_nodes[i]);
 
 	}
 
@@ -79,6 +83,7 @@ void CreateTopology(Node** H_nodes, Node** R_nodes, Node** G_nodes)
 		NetworkInterface* interface = new NetworkInterface(H_INTF_DATA_RATE, H_nodes[i]);
 		H_nodes[i]->AddInterface(interface);
 		H_nodes[i]->node_type = H_NODE;
+		nodes.push_back(H_nodes[i]);
 
         }
         
@@ -191,5 +196,21 @@ int main()
 	
 
 	Print(sim->events.begin(), sim->events.end());
-	Simulator::Run();
+
+//	for(int i=0; i<nodes.size(); i++)
+	{
+		nodes[12]->ComputeRoutes(nodes);
+	}
+	for(int i=0; i<nodes[12]->path.size(); i++)
+	{
+	Node* newnode=nodes[12]->path.front();
+	nodes[12]->path.pop_front();
+	nodes[12]->path.push_back(newnode);
+	cout<<newnode->GetAddr()<<endl;
+	}
+	for(int i=0;i<24; i++)
+	{
+		cout << i << " = " << nodes[12]->getNextHopRoute(i) << endl;
+	}
+	//Simulator::Run();
 }
