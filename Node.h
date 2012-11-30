@@ -40,6 +40,7 @@ public:
   Simulator* sim;
   int getNextHopRoute(int);
 
+
 std::list<Node*>               path;
 
 private:

@@ -59,7 +59,7 @@ void Node::djikstra(vector<Node*>nodes, int addr)
 	list<Node*>computed_route;
 	Node* dest = nodes[addr];
 	computed_route.push_back(dest);
-	
+
 	Node* prev_node=dest->path_from;
 	do
 	{
@@ -248,32 +248,26 @@ void Node::PacketGenerationComplete(int peer_addr, int size)
 }
 
 /*void Node::Handle(Event* ev, Time_t t)
-  {
-  if(ev->EventType == 0)
-  {
-  int size = neighbors.size();
-  int dest = rand()%size;
-  int count = rand()%100;
+{
+	if(ev->EventType == 0)
+	{
+		int size = neighbors.size();
+		int dest = rand()%size;
+		int count = rand()%100;
 
-<<<<<<< HEAD
-  this->Send(count, dest);
-  }	
-  }*/
-=======
 		this->Send(count, dest);
 	}	
 }*/
 
 void CreateBiDirLinks(NetworkInterface* a, NetworkInterface* b)
 {
-	
+
 	NetworkLink* link1 = new NetworkLink();		// a -> b
 	a->link = link1;
-        a->AddP2PLink(a->link, b);
+	a->AddP2PLink(a->link, b);
 
 	NetworkLink* link2 = new NetworkLink();		// b -> a
 	b->link = link2;
-        b->AddP2PLink(b->link, a);
+	b->AddP2PLink(b->link, a);
 
 }
->>>>>>> efaf89420e1a2fdeb01be4f573dbcf5c8b7bc352
