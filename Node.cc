@@ -196,18 +196,17 @@ void Node::AddInterface(NetworkInterface* interface)
 		cout << "ERROR!\nNull Interface" << endl;
 }
 
-void Node::AddNeighbor(Node* n)
+void Node::AddNeighbor(int interface_a, Node* n, int interface_b)
 {
 	if(n != NULL)
 	{
 		//Node::NodeCount++;
 		neighbors.push_back(n);
 		nextHopRoutes.push_back(n->address);
-		NetworkInterface *interface = new NetworkInterface();
-		AddInterface(interface);
 	}
 	else
 		cout << "ERROR!\nNULL node" << endl;	
+	CreateBiDirLinks(this->GetInterface(interface_a),n->GetInterface(interface_b));
 }
 
 void Node::AddApplication(Application* app)
@@ -233,7 +232,7 @@ void Node::Send(int count, int dest)
 	NetworkLink* temp_link = temp->link;
 	double data_rate = temp_link->dataRate;
 	Time_t transmit_time = (double)(((interfaces[index]->queue)->getLength())*PACKET_SIZE)/data_rate;
-	sim->Schedule(transmit_time, &NetworkInterface::Handle, interfaces[index]);
+	sim->Schedule(transmit_time, &NetworkInterface::Handle, interfaces[index]);		//add transmit complete event to queue
 }
 
 void Node::Receive(int count, int source)
@@ -256,6 +255,25 @@ void Node::PacketGenerationComplete(int peer_addr, int size)
   int dest = rand()%size;
   int count = rand()%100;
 
+<<<<<<< HEAD
   this->Send(count, dest);
   }	
   }*/
+=======
+		this->Send(count, dest);
+	}	
+}*/
+
+void CreateBiDirLinks(NetworkInterface* a, NetworkInterface* b)
+{
+	
+	NetworkLink* link1 = new NetworkLink();		// a -> b
+	a->link = link1;
+        a->AddP2PLink(a->link, b);
+
+	NetworkLink* link2 = new NetworkLink();		// b -> a
+	b->link = link2;
+        b->AddP2PLink(b->link, a);
+
+}
+>>>>>>> efaf89420e1a2fdeb01be4f573dbcf5c8b7bc352

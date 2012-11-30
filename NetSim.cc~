@@ -33,17 +33,7 @@ void Print(ForwardIterator b, ForwardIterator e, bool addEndl = true)
 	}
 }
 
-void CreateBiDirLinks(NetworkInterface* a, NetworkInterface* b)
-{
-	
-	NetworkLink* link1 = new NetworkLink();		// a -> b
-	a->link = link1;
-        a->AddP2PLink(a->link, b);
 
-	NetworkLink* link2 = new NetworkLink();		// b -> a
-	b->link = link2;
-        b->AddP2PLink(b->link, a);
-}
 
 void CreateTopology(Node** H_nodes, Node** R_nodes, Node** G_nodes)
 {
@@ -85,70 +75,100 @@ void CreateTopology(Node** H_nodes, Node** R_nodes, Node** G_nodes)
         
         /************************ G - G LINKS ****************************/
 	
-	CreateBiDirLinks(G_nodes[0]->GetInterface(0),G_nodes[1]->GetInterface(0));
+	G_nodes[0]->AddNeighbor(0,G_nodes[1],0);			//arguments: self interface, other node, other node 's interface
+	//CreateBiDirLinks(G_nodes[0]->GetInterface(0),G_nodes[1]->GetInterface(0));
 
-	CreateBiDirLinks(G_nodes[0]->GetInterface(1),G_nodes[2]->GetInterface(0));
-
-	CreateBiDirLinks(G_nodes[0]->GetInterface(2),G_nodes[3]->GetInterface(0));
+	G_nodes[0]->AddNeighbor(1,G_nodes[2],0);
+	//CreateBiDirLinks(G_nodes[0]->GetInterface(1),G_nodes[2]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[1]->GetInterface(1),G_nodes[2]->GetInterface(1));
+	G_nodes[0]->AddNeighbor(2,G_nodes[3],0);
+	//CreateBiDirLinks(G_nodes[0]->GetInterface(2),G_nodes[3]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[1]->GetInterface(2),G_nodes[3]->GetInterface(1));
+	G_nodes[1]->AddNeighbor(1,G_nodes[2],1);
+	//CreateBiDirLinks(G_nodes[1]->GetInterface(1),G_nodes[2]->GetInterface(1));
 	
-	CreateBiDirLinks(G_nodes[2]->GetInterface(2),G_nodes[3]->GetInterface(2));
+	G_nodes[1]->AddNeighbor(2,G_nodes[3],1);
+	//CreateBiDirLinks(G_nodes[1]->GetInterface(2),G_nodes[3]->GetInterface(1));
+	
+	G_nodes[2]->AddNeighbor(2,G_nodes[3],2);
+	//CreateBiDirLinks(G_nodes[2]->GetInterface(2),G_nodes[3]->GetInterface(2));
 	
 	
 	/************************ G - R LINKS ****************************/
 	
-	CreateBiDirLinks(G_nodes[0]->GetInterface(3),R_nodes[0]->GetInterface(0));
+	G_nodes[0]->AddNeighbor(3,R_nodes[0],0);
+	//CreateBiDirLinks(G_nodes[0]->GetInterface(3),R_nodes[0]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[0]->GetInterface(4),R_nodes[1]->GetInterface(0));
+	G_nodes[0]->AddNeighbor(4,R_nodes[1],0);
+	//CreateBiDirLinks(G_nodes[0]->GetInterface(4),R_nodes[1]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[1]->GetInterface(3),R_nodes[2]->GetInterface(0));
+	G_nodes[1]->AddNeighbor(3,R_nodes[2],0);
+	//CreateBiDirLinks(G_nodes[1]->GetInterface(3),R_nodes[2]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[1]->GetInterface(4),R_nodes[3]->GetInterface(0));
+	G_nodes[1]->AddNeighbor(4,R_nodes[3],0);
+	//CreateBiDirLinks(G_nodes[1]->GetInterface(4),R_nodes[3]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[2]->GetInterface(3),R_nodes[4]->GetInterface(0));
+	G_nodes[2]->AddNeighbor(3,R_nodes[4],0);
+	//CreateBiDirLinks(G_nodes[2]->GetInterface(3),R_nodes[4]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[2]->GetInterface(4),R_nodes[5]->GetInterface(0));
+	G_nodes[2]->AddNeighbor(4,R_nodes[5],0);
+	//CreateBiDirLinks(G_nodes[2]->GetInterface(4),R_nodes[5]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[3]->GetInterface(3),R_nodes[6]->GetInterface(0));
+	G_nodes[3]->AddNeighbor(3,R_nodes[6],0);
+	//CreateBiDirLinks(G_nodes[3]->GetInterface(3),R_nodes[6]->GetInterface(0));
 	
-	CreateBiDirLinks(G_nodes[3]->GetInterface(4),R_nodes[7]->GetInterface(0));
+	G_nodes[3]->AddNeighbor(4,R_nodes[7],0);
+	//CreateBiDirLinks(G_nodes[3]->GetInterface(4),R_nodes[7]->GetInterface(0));
 	
 	/************************ R - H LINKS ****************************/
 	
-	CreateBiDirLinks(R_nodes[0]->GetInterface(1),H_nodes[0]->GetInterface(0));
+	R_nodes[0]->AddNeighbor(1,H_nodes[0],0);
+	//CreateBiDirLinks(R_nodes[0]->GetInterface(1),H_nodes[0]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[0]->GetInterface(2),H_nodes[1]->GetInterface(0));
+	R_nodes[0]->AddNeighbor(2,H_nodes[1],0);
+	//CreateBiDirLinks(R_nodes[0]->GetInterface(2),H_nodes[1]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[1]->GetInterface(1),H_nodes[2]->GetInterface(0));
+	R_nodes[1]->AddNeighbor(1,H_nodes[2],0);
+	//CreateBiDirLinks(R_nodes[1]->GetInterface(1),H_nodes[2]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[1]->GetInterface(2),H_nodes[3]->GetInterface(0));
+	R_nodes[1]->AddNeighbor(2,H_nodes[3],0);
+	//CreateBiDirLinks(R_nodes[1]->GetInterface(2),H_nodes[3]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[2]->GetInterface(1),H_nodes[4]->GetInterface(0));
+	R_nodes[2]->AddNeighbor(1,H_nodes[4],0);
+	//CreateBiDirLinks(R_nodes[2]->GetInterface(1),H_nodes[4]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[2]->GetInterface(2),H_nodes[5]->GetInterface(0));
+	R_nodes[2]->AddNeighbor(2,H_nodes[5],0);
+	//CreateBiDirLinks(R_nodes[2]->GetInterface(2),H_nodes[5]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[3]->GetInterface(1),H_nodes[6]->GetInterface(0));
+	R_nodes[3]->AddNeighbor(1,H_nodes[6],0);
+	//CreateBiDirLinks(R_nodes[3]->GetInterface(1),H_nodes[6]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[3]->GetInterface(2),H_nodes[7]->GetInterface(0));
+	R_nodes[3]->AddNeighbor(2,H_nodes[7],0);
+	//CreateBiDirLinks(R_nodes[3]->GetInterface(2),H_nodes[7]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[4]->GetInterface(1),H_nodes[8]->GetInterface(0));
+	R_nodes[4]->AddNeighbor(1,H_nodes[8],0);
+	//CreateBiDirLinks(R_nodes[4]->GetInterface(1),H_nodes[8]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[4]->GetInterface(2),H_nodes[9]->GetInterface(0));
+	R_nodes[4]->AddNeighbor(2,H_nodes[9],0);
+	//CreateBiDirLinks(R_nodes[4]->GetInterface(2),H_nodes[9]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[5]->GetInterface(1),H_nodes[10]->GetInterface(0));
+	R_nodes[5]->AddNeighbor(1,H_nodes[10],0);
+	//CreateBiDirLinks(R_nodes[5]->GetInterface(1),H_nodes[10]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[5]->GetInterface(2),H_nodes[11]->GetInterface(0));
+	R_nodes[5]->AddNeighbor(2,H_nodes[11],0);
+	//CreateBiDirLinks(R_nodes[5]->GetInterface(2),H_nodes[11]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[6]->GetInterface(1),H_nodes[12]->GetInterface(0));
+	R_nodes[6]->AddNeighbor(1,H_nodes[12],0);
+	//CreateBiDirLinks(R_nodes[6]->GetInterface(1),H_nodes[12]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[6]->GetInterface(2),H_nodes[13]->GetInterface(0));
+	R_nodes[6]->AddNeighbor(2,H_nodes[13],0);
+	//CreateBiDirLinks(R_nodes[6]->GetInterface(2),H_nodes[13]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[7]->GetInterface(1),H_nodes[14]->GetInterface(0));
+	R_nodes[7]->AddNeighbor(1,H_nodes[14],0);
+	//CreateBiDirLinks(R_nodes[7]->GetInterface(1),H_nodes[14]->GetInterface(0));
 	
-	CreateBiDirLinks(R_nodes[7]->GetInterface(2),H_nodes[15]->GetInterface(0));
+	R_nodes[7]->AddNeighbor(2,H_nodes[15],0);
+	//CreateBiDirLinks(R_nodes[7]->GetInterface(2),H_nodes[15]->GetInterface(0));
 
 }
 
