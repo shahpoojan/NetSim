@@ -194,14 +194,14 @@ int main()
 
 
 	CreateTopology(H_nodes, R_nodes, G_nodes);
-	cout << "*********************************************************" << endl;
+	/*cout << "*********************************************************" << endl;
 	for(int i = 0; i < 4; i++)
 		cout << "G neighbor size: " << G_nodes[i]->GetSize() << endl;
 	for(int i = 0;i < 8; i++)
 		cout << "R neighbor size: " << R_nodes[i]->GetSize() << endl;
 	for(int i = 0;i < 8; i++)
 		cout << "H neighbor size: " << H_nodes[i]->GetSize() << endl;
-
+	*/
 	for(int i=0; i<16; i++)
 	{
 		double meanOffTime0=(float)rand()/(float)RAND_MAX; //time in seconds range 0 to 1 sec
@@ -225,23 +225,9 @@ int main()
 //	Print(sim->events.begin(), sim->events.end());
 
 
-	cout << "Computing routes" << endl;
 	for(int i=0; i<nodes.size(); i++)
 	{
 		nodes[i]->ComputeRoutes(nodes);
-		cout << "computed for " << i << endl;
 	}
-	/*for(int i=0; i<nodes[0]->path.size(); i++)
-	{
-	Node* newnode=nodes[0]->path.front();
-	nodes[0]->path.pop_front();
-	nodes[0]->path.push_back(newnode);
-	}*/
-
-	/*cout << "Routes computes" << endl;
-	for(int i=0;i<28; i++)
-	{
-		cout << i << " = " << nodes[1]->getNextHopRoute(i) << endl;
-	}*/
 	Simulator::Run();
 }

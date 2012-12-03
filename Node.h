@@ -9,6 +9,7 @@
 
 
 #include "Packet.h"
+#include "PacketSyncApplication.h"
 //#include "Handler.h"
 
 #define G_NODE 0
@@ -48,6 +49,7 @@ private:
   void bsf(std::vector<Node*>nodes);
   void djikstra(std::vector<Node*>,int);
   int distance;
+  PacketSyncApplication counter;
   int solved;
   Node *path_from;
   unsigned int                   address;    // This node's address
