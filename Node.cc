@@ -287,12 +287,14 @@ void Node::Send(int sourceaddr, int count, int dest)
 
 void Node::Receive(Packet* received)
 {
+	
 	if (received->destination != this->address)
 	{
 		Send(received->source, received->count, received->destination);
 	}
 	else {
 		cout << received->destination << " Received from " << received->source << endl;
+		counter.ReceivedData(PACKET_SIZE);
 		//Update count for received packets
 	}
 	// Send it to the ApplicationSync
