@@ -14,6 +14,22 @@ void PacketSyncApplication::ReceivedData(int count0)
       totalBytesReceived+=count0;
 }
 
+void PacketSyncApplication::SentData (int count0)
+{
+	sentPackets++;
+    sentBytes+=count0;
+}
+
+int PacketSyncApplication::getReceived()
+{
+	return totalPacketsReceived;
+}
+
+int PacketSyncApplication::getSent()
+{
+	return sentPackets;
+}
+
 /************************************* Event Handlers ****************************************/
 void PacketSyncApplication::Handle(Node* n, int type)
 {
