@@ -42,14 +42,13 @@ public:
   Simulator* sim;
   int getNextHopRoute(int);
   int GetSize();
-
+  PacketSyncApplication counter;
 std::list<Node*>               path;
 
 private:
   void bsf(std::vector<Node*>nodes);
   void djikstra(std::vector<Node*>,int);
   int distance;
-  PacketSyncApplication counter;
   int solved;
   Node *path_from;
   unsigned int                   address;    // This node's address

@@ -8,7 +8,7 @@
 //#include "Handler.h"
 //#include "Simulator.h"
 
-#define PACKET_SIZE 18000
+#define PACKET_SIZE 800
 class Node;
 class Simulator;
 

@@ -15,6 +15,9 @@ class PacketSyncApplication  : public Application
   PacketSyncApplication();
   //void         SetPeerAddress(int peerAddr); //Commented by Charmi
   void ReceivedData(int count0);
+  void SentData(int);
+  int getSent();
+  int getReceived();  
   void Start(Node*);
   void Stop(Node*);
   void Handle(Node*, int); // Handle events

@@ -231,4 +231,15 @@ int main()
 	}
 	Simulator::Run();
 
+	int sent_packets = 0;
+	int recv_packets = 0;
+	for(int i=0; i<nodes.size() ;i++)
+	{
+		sent_packets += nodes[i]->counter.getSent();
+		recv_packets += nodes[i]->counter.getReceived();
+	}
+
+	cout << "Sent = " << sent_packets << endl;
+	cout << "Recv = " << recv_packets << endl;
+
 }

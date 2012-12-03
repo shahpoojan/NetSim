@@ -5,6 +5,8 @@ PacketSyncApplication::PacketSyncApplication():Application()
 {
       totalPacketsReceived=0; // statistics
       totalBytesReceived=0;
+      sentPackets = 0;
+      sentBytes=0;
 }
 
 //Added by Charmi

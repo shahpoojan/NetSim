@@ -13,7 +13,8 @@ DropTailQueue::DropTailQueue(int max_length):Queue()
 
 bool DropTailQueue::Enque(Packet* pkt)
 {
-	if((pkt != NULL) && (length != max_length))
+	cout << "Enqueu called" << endl;
+	if((pkt != NULL) && (length < max_length))
 	{
 		PacketQueue->push_back(pkt);
 		length++;

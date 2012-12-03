@@ -5,12 +5,14 @@
 #include <iostream>
 #include "Node.h"
 #include "Simulator.h"
+
+#define QUEUE_SIZE 500
 using namespace std;
 long unsigned int num_dropped_pkts = 0;
 //Default Constructor for NIC
 NetworkInterface::NetworkInterface()
 {
-	queue = new DropTailQueue(1000);
+	queue = new DropTailQueue(QUEUE_SIZE);
 	link = NULL;
 	node = NULL;
 	busy = false;
@@ -20,7 +22,7 @@ NetworkInterface::NetworkInterface()
 //Constructor for Network Interface. The AddNeighbor function will pass the required NIC data rate as argument.
 NetworkInterface::NetworkInterface(double i_data_rate, Node* assoc_node)
 {
-	queue = new DropTailQueue(1000);
+	queue = new DropTailQueue(QUEUE_SIZE);
 	link = NULL;
 	node = assoc_node;
 	busy = false;

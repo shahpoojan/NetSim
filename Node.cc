@@ -87,25 +87,25 @@ void Node::djikstra(vector<Node*>nodes, int addr)
 			{
 				Node* add=(*cii);
 				computed_route.push_back(add);
-			//	path.pop_front();
-			//	path.push_back(add);
+				//	path.pop_front();
+				//	path.push_back(add);
 				prev_node=add->path_from;	
-		//		cout<<"prev node="<<prev_node->GetAddr()<<endl;			
+				//		cout<<"prev node="<<prev_node->GetAddr()<<endl;			
 				break;
 			}
 		}			
 	}while(prev_node!=NULL);
 
 	/*computed_route.pop_back();
-	Node* next_node = computed_route.back();
-	nextHopRoutes[addr] = next_node->GetAddr();*/
+	  Node* next_node = computed_route.back();
+	  nextHopRoutes[addr] = next_node->GetAddr();*/
 	computed_route.pop_back();
-        Node* next_node = computed_route.back();
-        for(int i=0; i<interfaces.size(); i++)
-        {
-                if((interfaces[i]->link->Receiver->node->GetAddr() == next_node->GetAddr()))
-                nextHopRoutes[addr] = i;
-        }
+	Node* next_node = computed_route.back();
+	for(int i=0; i<interfaces.size(); i++)
+	{
+		if((interfaces[i]->link->Receiver->node->GetAddr() == next_node->GetAddr()))
+			nextHopRoutes[addr] = i;
+	}
 
 }
 
@@ -122,7 +122,7 @@ void Node::bsf(vector<Node*>nodes)
 	do
 	{
 		int solved_num=path.size();
-//		cout<<"path size="<<solved_num<<endl;
+		//		cout<<"path size="<<solved_num<<endl;
 		Node* add_to_path;		
 		for(int k=0; k<solved_num; k++)
 		{
@@ -132,27 +132,27 @@ void Node::bsf(vector<Node*>nodes)
 			solved=path.front();
 			path.pop_front();
 			path.push_back(solved);
-	//		cout<<"\ncurrent solved node="<<solved->GetAddr()<<endl;
+			//		cout<<"\ncurrent solved node="<<solved->GetAddr()<<endl;
 			int size=solved->neighbors.size();
-	//		cout<<"neighbor size="<<size<<endl;
+			//		cout<<"neighbor size="<<size<<endl;
 			for(int l=0; l<size; l++)
 			{
 				Node* neighbour =solved->neighbors.front();
 				solved->neighbors.pop_front();
 				solved->neighbors.push_back(neighbour);
-	//			cout<<"distance="<<distance<<endl;
+				//			cout<<"distance="<<distance<<endl;
 				if(neighbour->solved==1)
 					continue;
-	//			cout<<"neighbour addr="<<neighbour->GetAddr()<<endl;
+				//			cout<<"neighbour addr="<<neighbour->GetAddr()<<endl;
 				if(distance>solved->distance+1)
 				{
 					distance=solved->distance+1;
 					add_to_path=neighbour;
 					neighbour->path_from=solved;
-					 //cout<<"current solved node="<<solved->GetAddr()<<endl;
-					 //cout<<"neighbor size="<<size<<endl;
-	//				cout<<"\nadd to path="<<neighbour->GetAddr()<<endl;
-	//				cout<<"new distance="<<distance<<endl;
+					//cout<<"current solved node="<<solved->GetAddr()<<endl;
+					//cout<<"neighbor size="<<size<<endl;
+					//				cout<<"\nadd to path="<<neighbour->GetAddr()<<endl;
+					//				cout<<"new distance="<<distance<<endl;
 					added=1;
 				}
 			}		
@@ -171,7 +171,7 @@ void Node::bsf(vector<Node*>nodes)
 void Node::ComputeRoutes(vector<Node*> nodes)
 {
 
-	 bsf(nodes);
+	bsf(nodes);
 	for(int i=0;i<nodes.size();i++)
 	{
 		if(i!=this->address)
@@ -247,14 +247,14 @@ void Node::AddNeighbor(int interface_a, Node* n, int interface_b)
 		//Node::NodeCount++;
 		neighbors.push_back(n);
 		nextHopRoutes.push_back(n->address);
-		
+
 		n->neighbors.push_back(this);
 		n->nextHopRoutes.push_back(this->address);
 	}
 	else
-	cout << "ERROR!\nNULL node" << endl;	
+		cout << "ERROR!\nNULL node" << endl;	
 	CreateBiDirLinks(this->GetInterface(interface_a),n->GetInterface(interface_b));
-        //cout << address << " Neigh size = " << neighbors.size() << endl;
+	//cout << address << " Neigh size = " << neighbors.size() << endl;
 }
 
 void Node::AddApplication(Application* app)
@@ -275,19 +275,22 @@ void Node::Send(int sourceaddr, int count, int dest)
 	// Packet *p = applications[0].generate()
 	//// Look into routing table
 	int index = getNextHopRoute(dest);
-	counter.SentData(PACKET_SIZE);
-	
-	interfaces[index]->queue->Enque(p);
-	NetworkInterface* temp = interfaces[index];
-	NetworkLink* temp_link = temp->link;
-	double data_rate = temp_link->dataRate;
-	Time_t transmit_time = (double)(((interfaces[index]->queue)->getLength())*PACKET_SIZE)/data_rate;
-	sim->Schedule(transmit_time, &NetworkInterface::Send, interfaces[index]);		//add transmit complete event to queue
+	if(sourceaddr == this->address)
+		counter.SentData(PACKET_SIZE);
+
+	if(interfaces[index]->queue->Enque(p))
+	{
+		NetworkInterface* temp = interfaces[index];
+		NetworkLink* temp_link = temp->link;
+		double data_rate = temp_link->dataRate;
+		Time_t transmit_time = (double)(((interfaces[index]->queue)->getLength())*8*PACKET_SIZE)/data_rate;
+		sim->Schedule(transmit_time, &NetworkInterface::Send, interfaces[index]);		//add transmit complete event to queue
+	}
 }
 
 void Node::Receive(Packet* received)
 {
-	
+
 	if (received->destination != this->address)
 	{
 		Send(received->source, received->count, received->destination);
@@ -307,16 +310,16 @@ void Node::PacketGenerationComplete(int sourceaddr, int peer_addr, int size)
 }
 
 /*void Node::Handle(Event* ev, Time_t t)
-{
-	if(ev->EventType == 0)
-	{
-		int size = neighbors.size();
-		int dest = rand()%size;
-		int count = rand()%100;
+  {
+  if(ev->EventType == 0)
+  {
+  int size = neighbors.size();
+  int dest = rand()%size;
+  int count = rand()%100;
 
-		this->Send(count, dest);
-	}	
-}*/
+  this->Send(count, dest);
+  }	
+  }*/
 
 void CreateBiDirLinks(NetworkInterface* a, NetworkInterface* b)
 {
