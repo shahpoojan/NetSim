@@ -292,7 +292,7 @@ void Node::Receive(Packet* received)
 		Send(received->source, received->count, received->destination);
 	}
 	else {
-		cout << received->destination << " Received from " << received->source << endl;
+		cout << received->destination << " Received from " << received->source << " at "<< Simulator::Now() << endl;
 		//Update count for received packets
 	}
 	// Send it to the ApplicationSync

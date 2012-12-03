@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <iostream>
 #include "Node.h"
-
+#include "Simulator.h"
 using namespace std;
 long unsigned int num_dropped_pkts = 0;
 //Default Constructor for NIC
@@ -56,6 +56,7 @@ void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peerork
 void NetworkInterface::Send() //Send specified packet to p2p off the
 {
 	Packet* p = queue->Deque();
+	cout << p->source << " sent to " << p->destination << " at " << Simulator::Now() << endl;
 	link->Send(p);
 }
 
