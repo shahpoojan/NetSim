@@ -49,6 +49,10 @@ void OnOffApplication::Start(Node* node)
 	{
 		//Create Events
 		curr_time = curr_time + PACKET_SIZE/rateWhenOn;
+		peerAddress = rand()%28;
+		while(peerAddress == node->GetAddr())
+			peerAddress = rand()%28;
+
 		sim->Schedule(curr_time, &Node::PacketGenerationComplete, node, node->GetAddr(), peerAddress, PACKET_SIZE);
 
 	}

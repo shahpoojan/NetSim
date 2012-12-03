@@ -97,9 +97,17 @@ void Node::djikstra(vector<Node*>nodes, int addr)
 		}			
 	}while(prev_node!=NULL);
 
-	computed_route.pop_back();
+	/*computed_route.pop_back();
 	Node* next_node = computed_route.back();
-	nextHopRoutes[addr] = next_node->GetAddr();
+	nextHopRoutes[addr] = next_node->GetAddr();*/
+	computed_route.pop_back();
+        Node* next_node = computed_route.back();
+        for(int i=0; i<interfaces.size(); i++)
+        {
+                if((interfaces[i]->link->Receiver->node->GetAddr() == next_node->GetAddr()))
+                nextHopRoutes[addr] = i;
+        }
+
 }
 
 void Node::bsf(vector<Node*>nodes)
@@ -236,7 +244,7 @@ void Node::AddNeighbor(int interface_a, Node* n, int interface_b)
 {
 	if(n != NULL)
 	{
-		cout << "Pushing the neighbors" << endl;
+		//cout << "Pushing the neighbors" << endl;
 		//Node::NodeCount++;
 		neighbors.push_back(n);
 		nextHopRoutes.push_back(n->address);
@@ -247,7 +255,7 @@ void Node::AddNeighbor(int interface_a, Node* n, int interface_b)
 	else
 	cout << "ERROR!\nNULL node" << endl;	
 	CreateBiDirLinks(this->GetInterface(interface_a),n->GetInterface(interface_b));
-        cout << address << " Neigh size = " << neighbors.size() << endl;
+        //cout << address << " Neigh size = " << neighbors.size() << endl;
 }
 
 void Node::AddApplication(Application* app)
@@ -284,6 +292,7 @@ void Node::Receive(Packet* received)
 		Send(received->source, received->count, received->destination);
 	}
 	else {
+		cout << received->destination << " Received from " << received->source << endl;
 		//Update count for received packets
 	}
 	// Send it to the ApplicationSync
@@ -291,7 +300,7 @@ void Node::Receive(Packet* received)
 
 void Node::PacketGenerationComplete(int sourceaddr, int peer_addr, int size)
 {
-	cout << "Node handle called for " << address  << endl;
+	//cout << "Node handle called for " << address  << endl;
 	this->Send(sourceaddr, size, peer_addr);
 }
 
@@ -312,10 +321,11 @@ void CreateBiDirLinks(NetworkInterface* a, NetworkInterface* b)
 
 	NetworkLink* link1 = new NetworkLink();		// a -> b
 	a->link = link1;
+	a->link->SetPeer(a,b);
 	a->AddP2PLink(a->link, b);
 
 	NetworkLink* link2 = new NetworkLink();		// b -> a
 	b->link = link2;
+	b->link->SetPeer(b,a);
 	b->AddP2PLink(b->link, a);
-
 }

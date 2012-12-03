@@ -1,6 +1,8 @@
 #include "NetworkLink.h"
 #include "Simulator.h"
+#include <iostream>
 
+using namespace std;
 NetworkLink::NetworkLink() // Construct with delay and data rate
 {
 	
@@ -8,6 +10,8 @@ NetworkLink::NetworkLink() // Construct with delay and data rate
 
 void NetworkLink::SetPeer(NetworkInterface* peer1, NetworkInterface* peer2)
 {
+	cout << "peer1 " << peer1 << endl;
+	cout << "peer2 " << peer2 << endl;
 	Sender = peer1;
 	Receiver = peer2;
 }

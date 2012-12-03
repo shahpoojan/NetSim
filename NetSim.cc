@@ -243,5 +243,5 @@ int main()
 	{
 		cout << i << " = " << nodes[1]->getNextHopRoute(i) << endl;
 	}*/
-	//Simulator::Run();
+	Simulator::Run();
 }
