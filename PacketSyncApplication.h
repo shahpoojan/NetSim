@@ -21,5 +21,7 @@ class PacketSyncApplication  : public Application
 private:
   int totalPacketsReceived;  // statistics
   int totalBytesReceived;
+  int sentPackets;
+  int sentBytes;
 };
 #endif
