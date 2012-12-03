@@ -87,7 +87,6 @@ void Node::djikstra(vector<Node*>nodes, int addr)
 			{
 				Node* add=(*cii);
 				computed_route.push_back(add);
-				cout<<"next node="<<add->GetAddr()<<endl;
 			//	path.pop_front();
 			//	path.push_back(add);
 				prev_node=add->path_from;	
@@ -294,7 +293,7 @@ void Node::Receive(Packet* received)
 		Send(received->source, received->count, received->destination);
 	}
 	else {
-		cout << received->destination << " Received from " << received->source << endl;
+		cout << received->destination << " Received from " << received->source << " at "<< Simulator::Now() << endl;
 		counter.ReceivedData(PACKET_SIZE);
 		//Update count for received packets
 	}

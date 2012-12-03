@@ -1,7 +1,7 @@
 #include "DropTailQueue.h"
 #include <cstddef>
 #include <iostream>
-
+#include "Packet.h"
 using namespace std;
 
 DropTailQueue::DropTailQueue(int max_length):Queue()
@@ -19,6 +19,8 @@ bool DropTailQueue::Enque(Packet* pkt)
 		length++;
 		return true;
 	}
+	else
+		cout << "Packet Dropped. Source = " << pkt->source << ". Dest = " << pkt->destination << endl;
 
 	return false;
 }
