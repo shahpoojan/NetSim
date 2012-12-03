@@ -56,7 +56,7 @@ void NetworkInterface::Send(Packet* pkt) // Send specified packet to p2p peerork
 void NetworkInterface::Send() //Send specified packet to p2p off the
 {
 	Packet* p = queue->Deque();
-	link->Send(p, this);
+	link->Send(p);
 }
 
 void NetworkInterface::Receive(Packet* p)

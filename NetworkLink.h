@@ -20,12 +20,12 @@ class NetworkLink
 	NetworkLink(); // Construtor
 	NetworkLink(double delay0, double dataRate0); // Construct with delay and data rate
 	void SetPeer(NetworkInterface* , NetworkInterface* );
-	void Send(Packet*, NetworkInterface*);   // Send a packet to peer
+	void Send(Packet*);   // Send a packet to peer
 	
 	public:
 	Simulator* sim;
-	NetworkInterface* Peer1;
-	NetworkInterface* Peer2;
+	NetworkInterface* Sender;
+	NetworkInterface* Receiver;
 	double delay; // Speed of light delay on this link
 	double dataRate; // Bits per second on this link
 };

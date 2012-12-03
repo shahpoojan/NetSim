@@ -8,8 +8,8 @@ NetworkLink::NetworkLink() // Construct with delay and data rate
 
 void NetworkLink::SetPeer(NetworkInterface* peer1, NetworkInterface* peer2)
 {
-	Peer1 = peer1;
-	Peer2 = peer2;
+	Sender = peer1;
+	Receiver = peer2;
 }
 
 NetworkLink::NetworkLink(double delay0, double dataRate0) // Construct with delay and data rate
@@ -18,15 +18,16 @@ NetworkLink::NetworkLink(double delay0, double dataRate0) // Construct with dela
 	dataRate = dataRate0;
 }
 
-void NetworkLink::Send(Packet* p, NetworkInterface* source)
+void NetworkLink::Send(Packet* p)
 {
-	if (Peer1 == source)
+	sim->Schedule(delay, &NetworkInterface::Receive, Receiver, p);
+	/*if (Peer1 == source)
 	{
 		sim->Schedule(delay, &NetworkInterface::Receive, Peer2, p);
 	}
 	else 
 	{
 		sim->Schedule(delay, &NetworkInterface::Receive, Peer1, p);
-	}
+	}*/
 	//add receive event to the sorted container
 }
